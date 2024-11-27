@@ -3,7 +3,7 @@ import { authenticationService } from '@/_services';
 export function handleResponse(response, avoidRedirection = false) {
   return response.text().then((text) => {
     const data = text && JSON.parse(text);
-    if (!response.ok) {
+    if (!response.ok) {//response not ok doesn't mean the fetech is rejected. Fetch is still consider to be resolved. Therefore reponse is still processed in the resolve handler
       if ([401].indexOf(response.status) !== -1) {
         const errorMessageJson = typeof data.message === 'string' ? JSON.parse(data.message) : undefined;
         const workspaceId = errorMessageJson?.organizationId;

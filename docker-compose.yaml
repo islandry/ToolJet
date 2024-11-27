@@ -29,6 +29,9 @@ services:
       - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
       - NODE_ENV=development
       - SERVE_CLIENT=false
+      - WDS_SOCKET_HOST=127.0.0.1
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     command: npm run --prefix frontend start
 
   server:
@@ -68,7 +71,7 @@ services:
     image: postgres:13
     restart: always
     ports:
-      - 5432:5432
+      - 5433:5433
     volumes:
       - postgres:/data/postgres
     env_file: .env

@@ -73,13 +73,14 @@ export const AuthRoute = ({ children, navigate }) => {
   };
 
   const fetchOrganizationDetails = () => {
+    console.log("organizationSlug", organizationSlug);
     authenticationService.getOrganizationConfigs(organizationSlug).then(
       (configs) => {
         setOrganizationId(configs.id);
         setConfigs(configs);
         setGettingConfig(false);
       },
-      async (response) => {
+      async (response) => { //this is the reject handler for getOrganizationConfigs api call
         if (response.data.statusCode !== 404 && response.data.statusCode !== 422) {
           return navigate({
             pathname: '/',
