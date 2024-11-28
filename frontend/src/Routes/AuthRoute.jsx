@@ -73,14 +73,17 @@ export const AuthRoute = ({ children, navigate }) => {
   };
 
   const fetchOrganizationDetails = () => {
-    console.log("organizationSlug", organizationSlug);
     authenticationService.getOrganizationConfigs(organizationSlug).then(
       (configs) => {
         setOrganizationId(configs.id);
         setConfigs(configs);
         setGettingConfig(false);
       },
-      async (response) => { //this is the reject handler for getOrganizationConfigs api call
+
+      //this is the reject handler for the promise returned by getOrganizationConfigs(), it will not handle the reject case of success handler
+      //note that if the reject was caught earlier in the promise chain, then this catch will not capture the error(reject) again
+      async (response) => {
+        console.log("reject handler", response)
         if (response.data.statusCode !== 404 && response.data.statusCode !== 422) {
           return navigate({
             pathname: '/',

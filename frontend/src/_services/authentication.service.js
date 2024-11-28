@@ -161,6 +161,7 @@ function getOrganizationConfigs(organizationId) {
   )
     .then(handleResponse)
     .then((configs) => configs?.sso_configs);
+  //.catch(error => console.log("check catch", error)); //don't catch the reject here because there is an error handler at the end of promise chain
 }
 
 function signup(email, name, password, organizationId, redirectTo) {
