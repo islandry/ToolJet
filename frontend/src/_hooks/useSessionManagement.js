@@ -35,6 +35,7 @@ export const useSessionManagement = (initialState = defaultState) => {
     navigate(
       { pathname, search },
       { replace: true, state: Object.assign({}, state || {}, { isSwitchingPage: false }) }
+      //state ? { ...state, isSwitchingPage: false } : { isSwitchingPage: false }
     );
     const subject = authenticationService.currentSession.subscribe(
       async (newSession) => await handleNewSession(newSession)
